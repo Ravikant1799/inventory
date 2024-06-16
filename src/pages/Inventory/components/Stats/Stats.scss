@@ -1,0 +1,26 @@
+.stats-container {
+    display: flex;
+    column-gap: 1.5rem;
+    .stats-item {
+        display: flex;
+        flex: 1;
+        column-gap: 1.5rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: #243325;
+        color: #fff;
+
+        .stats-label-value {
+
+            .stats-item-label {
+                font-size: 0.8rem;
+                font-weight: 400;
+            }
+
+            .stats-item-value {
+                font-size: 1.3rem;
+                font-weight: 600;
+            }
+        }
+    }
+}
