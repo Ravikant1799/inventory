@@ -16,7 +16,7 @@ const Inventory = () => {
   const [inventory, setInventory] = useState<Array<ProductType>>([]);
   const [metaData, setMetadata] = useState<StatsType>(defaultStats);
   const [loading, setLoading] = useState<boolean>(false);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);

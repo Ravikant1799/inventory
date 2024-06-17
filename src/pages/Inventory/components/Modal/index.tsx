@@ -1,14 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, ReactNode, useCallback } from "react";
 import "./Modal.scss";
 
-const Modal = ({ isOpen, onClose, children }: any) => {
-  const modalRef = useRef<any>();
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+}
 
-  const handleClickOutside = (event: any) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      onClose();
-    }
-  };
+const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -20,7 +32,7 @@ const Modal = ({ isOpen, onClose, children }: any) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, handleClickOutside]);
 
   if (!isOpen) {
     return null;

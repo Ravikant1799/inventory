@@ -73,7 +73,7 @@ const InventoryTable = ({
           </thead>
           <tbody>
             {data.map((item: any, index: number) => (
-              <tr key={index} className="data-table-row">
+              <tr key={`${index}-${item.name}`} className="data-table-row">
                 <td>{item.name}</td>
                 <td>{item.category}</td>
                 <td>{item.value}</td>

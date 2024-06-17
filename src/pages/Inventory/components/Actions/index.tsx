@@ -63,7 +63,7 @@ const Actions = ({
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <div className="modal-header">
           <div className="modal-heading">Edit Product</div>
-          <div className="modal-sub-heading">This is a modal.</div>
+          <div className="modal-sub-heading">{product.name}</div>
         </div>
         <form className="form-container">
           <div className="form-input-container">
