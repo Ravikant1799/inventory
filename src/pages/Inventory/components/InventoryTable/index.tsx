@@ -1,41 +1,14 @@
 import React from "react";
 import Actions from "../Actions";
-import { ProductType } from "../../utils";
+import { useInventory } from "../../reducer";
 
-const InventoryTable = ({
-  loading,
-  isError,
-  isAdmin,
-  tableData: data,
-  setTableData,
-}: any) => {
-  const deleteProduct = (productName: string) => {
-    const filteredData = data.filter(
-      (product: any) => product.name !== productName
-    );
-    setTableData(filteredData);
-  };
+interface TableProps {
+  loading: boolean;
+  isError: boolean;
+}
 
-  const updateProduct = (updatedProduct: ProductType) => {
-    const updatedData = data.map((product: any) => {
-      if (product.name !== updatedProduct.name) return product;
-
-      return updatedProduct;
-    });
-    setTableData(updatedData);
-  };
-
-  const disableProduct = (productName: string) => {
-    const updatedData = data.map((product: any) => {
-      if (product.name !== productName) return product;
-
-      return {
-        ...product,
-        disabled: !!!product.disabled,
-      };
-    });
-    setTableData(updatedData);
-  };
+const InventoryTable = ({ loading, isError }: TableProps) => {
+  const { inventory: data } = useInventory();
 
   return (
     <div className="inventory-table-container">
@@ -80,13 +53,7 @@ const InventoryTable = ({
                 <td>{item.quantity}</td>
                 <td>{item.price}</td>
                 <td>
-                  <Actions
-                    deleteProduct={deleteProduct}
-                    updateProduct={updateProduct}
-                    disableProduct={disableProduct}
-                    isAdmin={isAdmin}
-                    product={item}
-                  />
+                  <Actions product={item} />
                 </td>
               </tr>
             ))}

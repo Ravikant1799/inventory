@@ -1,13 +1,13 @@
 import React from "react";
-import { StatsType } from "../../utils";
 import { RiExchangeDollarLine } from "react-icons/ri";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import { MdShoppingCart } from "react-icons/md";
 import { MdCategory } from "react-icons/md";
-
+import { useInventory } from "../../reducer";
 import "./Stats.scss";
 
-const Stats = ({ statsData }: { statsData: StatsType }) => {
+const Stats = () => {
+  const { metaData: statsData } = useInventory();
   return (
     <div className="stats-container">
       <div className="stats-item">

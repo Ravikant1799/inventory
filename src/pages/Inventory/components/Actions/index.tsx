@@ -6,27 +6,21 @@ import { MdDelete } from "react-icons/md";
 
 import Modal from "../Modal";
 import { ProductType } from "../../utils";
+import { useInventory } from "../../reducer";
 import "./Actions.scss";
 
 export interface ActionsProps {
   product: ProductType;
-  isAdmin: boolean;
-  deleteProduct: (productName: string) => void;
-  disableProduct: (productName: string) => void;
-  updateProduct: (product: ProductType) => void;
 }
 
-const Actions = ({
-  deleteProduct,
-  disableProduct,
-  updateProduct,
-  product,
-  isAdmin,
-}: ActionsProps) => {
+const Actions = ({ product }: ActionsProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState<ProductType>({
     ...product,
   });
+
+  const { isAdmin, deleteProduct, updateProduct, disableProduct } =
+    useInventory();
 
   const editsDisabled = isAdmin && product.disabled;
 
@@ -41,19 +35,19 @@ const Actions = ({
   return (
     <div id={product.name} className="actions-container">
       <div
-        className="action-btn"
+        className={editsDisabled || !isAdmin ? "action-disabled" : "action-btn"}
         onClick={() =>
           editsDisabled || !isAdmin ? {} : setModalOpen(!isModalOpen)
         }>
         <MdEdit />
       </div>
       <div
-        className="action-btn"
+        className={!isAdmin ? "action-disabled" : "action-btn"}
         onClick={() => (!isAdmin ? {} : disableProduct(product.name))}>
         {product.disabled ? <IoEyeOff /> : <IoEye />}
       </div>
       <div
-        className="action-btn"
+        className={editsDisabled || !isAdmin ? "action-disabled" : "action-btn"}
         onClick={() =>
           editsDisabled || !isAdmin ? {} : deleteProduct(product.name)
         }>
